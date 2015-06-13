@@ -13,9 +13,12 @@ class AddUserAttributes extends Migration
     public function up()
     {
       Schema::table('users', function ($table) {
-        $table->integer('post_count');
-        $table->integer('reputation');
-        $table->integer('group_id')
+        $table->integer('post_count')->default(0);
+        $table->integer('reputation')->default(0);
+        $table->integer('group_id')->default(1);
+        $table->boolean('is_active')->default(False);
+        $table->boolean('is_mod')->default(False);
+        $table->boolean('is_admin')->default(False);
       });
     }
 
@@ -27,7 +30,7 @@ class AddUserAttributes extends Migration
     public function down()
     {
       Schema::table('users', function ($table) {
-        $table->dropColumn(['post_count', 'reputation', 'group_id']);
+        $table->dropColumn(['post_count', 'reputation', 'group_id', 'is_active', 'is_mod', 'is_admin']);
       });
     }
 }
